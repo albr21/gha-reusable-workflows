@@ -12,7 +12,7 @@ on:
 
 jobs:
   python-ci:
-    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-build-and-push-docker-image-on-ghcr.yml
+    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-build-and-push-docker-image-on-ghcr.yml@main
     with:
       name: <name>
       tag: <tag>
