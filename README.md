@@ -1,6 +1,6 @@
-# <project-name>
+# gha-reusable-workflows
 
-<!-- A brief description of the project. -->
+GitHub Actions workflows for CI/CD across repositories.
 
 ## Usage
 
