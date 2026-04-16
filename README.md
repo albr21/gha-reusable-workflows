@@ -4,7 +4,26 @@ GitHub Actions workflows for CI/CD across repositories.
 
 ## Usage
 
-<!-- Provide instructions on how to use the project, including code examples if applicable. -->
+```yaml
+name: <workflow-name>
+
+on:
+  workflow_dispatch:
+
+jobs:
+  python-ci:
+    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-build-and-push-docker-image-on-ghcr.yml
+    with:
+      name: <name>
+      tag: <tag>
+      dockerfile: <dockerfile>
+      context: <context>
+    secrets: inherit
+```
+
+## Available Workflows
+
+- [🧩 Reusable Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
 
 ## Contributing
 
