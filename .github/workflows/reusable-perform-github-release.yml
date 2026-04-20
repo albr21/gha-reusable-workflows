@@ -17,7 +17,7 @@ jobs:
         id: manifest
         uses: albr21/gha-manifest@1.0.0
         with:
-          file: manifest.yaml
+          manifest: manifest.yaml
 
       - name: Create GitHub Release
         uses: albr21/gha-create-github-release@1.0.0
