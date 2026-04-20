@@ -1,0 +1,28 @@
+name: 🧩 Reusable Perform GitHub Release
+
+on:
+  workflow_call:
+
+jobs:
+  release:
+    name: Release 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Fetch data from manifest.yaml
+        id: manifest
+        uses: albr21/gha-manifest@1.0.0
+        with:
+          file: manifest.yaml
+
+      - name: Create GitHub Release
+        uses: albr21/gha-create-github-release@1.0.0
+        with:
+          sha: ${{ github.sha }}
+          tag: ${{ steps.manifest.outputs.release-version }}
+          title: ${{ steps.manifest.outputs.release-title }}
+          body: ${{ steps.manifest.outputs.release-body }}
