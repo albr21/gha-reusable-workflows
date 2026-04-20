@@ -24,6 +24,7 @@ jobs:
 ## Available Workflows
 
 - [🧩 Reusable Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
+- [🚀 Reusable Perform GitHub Release](./workflows/reusable-perform-github-release.yml)
 
 ## Contributing
 
