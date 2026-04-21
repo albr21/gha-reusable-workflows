@@ -2,6 +2,12 @@ name: 🧩 Reusable Perform GitHub Release
 
 on:
   workflow_call:
+    inputs:
+      force:
+        description: Force the release (overwrite existing tag)
+        type: boolean
+        required: false
+        default: true
 
 jobs:
   release:
@@ -28,3 +34,4 @@ jobs:
           tag: ${{ steps.manifest.outputs.release-version }}
           title: ${{ steps.manifest.outputs.release-title }}
           body: ${{ steps.manifest.outputs.release-body }}
+          force: ${{ inputs.force }}
