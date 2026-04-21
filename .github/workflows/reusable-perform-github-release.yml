@@ -23,7 +23,7 @@ jobs:
 
       - name: Fetch data from manifest.yaml
         id: manifest
-        uses: albr21/gha-manifest@main
+        uses: albr21/gha-manifest@1.0.0
         with:
           manifest: manifest.yaml
 
