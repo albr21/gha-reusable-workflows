@@ -1,0 +1,56 @@
+name: 🧩 Python Quality
+
+on:
+  workflow_call:
+    inputs:
+      docker-image:
+        description: Docker image to use. Should be a Python image.
+        type: string
+        default: ghcr.io/albr21/python-3.13:1.0.0-alpine
+      source-dir:
+        description: Root directory of the Python source code
+        type: string
+        default: src
+      min-coverage:
+        description: Minimum test coverage percentage to pass the build
+        type: string
+        default: '80'
+      lint-threshold:
+        description: Minimum pylint score considered acceptable (does NOT fail the build)
+        type: string
+        default: '7.0'
+      requirements:
+        description: Path to the requirements file
+        type: string
+        default: requirements.txt
+      requirements-dev:
+        description: Path to the dev requirements file
+        type: string
+        default: requirements-dev.txt
+
+jobs:
+  test:
+    name: Tests & Coverage
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.docker-image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python environment
+        uses: albr21/gha-py-venv@1.0.0
+        with:
+          requirements: ${{ inputs.requirements }}
+          requirements-dev: ${{ inputs.requirements-dev }}
+
+      - name: Run tests with coverage
+        uses: albr21/gha-pytest@1.0.0
+        with:
+          source-dir: ${{ inputs.source-dir }}
+          min-coverage: ${{ inputs.min-coverage }}
+
+  # TODO
+  # lint:

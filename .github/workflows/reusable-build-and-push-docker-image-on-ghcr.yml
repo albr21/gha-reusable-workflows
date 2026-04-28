@@ -1,4 +1,4 @@
-name: 🧩 Reusable Build and Push Docker Image on GHCR
+name: 🧩 Build and Push Docker Image on GHCR
 
 on:
   workflow_call:

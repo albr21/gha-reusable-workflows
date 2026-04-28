@@ -1,4 +1,4 @@
-name: 🧩 Reusable Perform GitHub Release
+name: 🧩 Perform GitHub Release
 
 on:
   workflow_call:

@@ -11,20 +11,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  python-ci:
-    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-build-and-push-docker-image-on-ghcr.yml@main
+  <job-name>:
+    uses: albr21/gha-reusable-workflows/.github/workflows/<workflow-name>@main
     with:
-      name: <name>
-      tag: <tag>
-      dockerfile: <dockerfile>
-      context: <context>
+      <inputs>
     secrets: inherit
 ```
 
 ## Available Workflows
 
-- [🧩 Reusable Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
-- [🚀 Reusable Perform GitHub Release](./workflows/reusable-perform-github-release.yml)
+- [🧩 Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
+- [🧩 Perform GitHub Release](./workflows/reusable-perform-github-release.yml)
+- [🧩 Python Quality](./workflows/reusable-python-quality.yml)
 
 ## Contributing
 
