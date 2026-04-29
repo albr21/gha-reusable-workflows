@@ -7,11 +7,11 @@ on:
         description: Docker image to use. Should be a Python image.
         type: string
         default: ghcr.io/albr21/python-3.13:1.0.0-alpine
-      source-dir:
-        description: Root directory of the Python source code
+      path:
+        description: Path to the Python code to analyze
         type: string
         default: src
-      min-coverage:
+      cov-threshold:
         description: Minimum test coverage percentage to pass the build
         type: string
         default: '80'
@@ -49,8 +49,8 @@ jobs:
       - name: Run tests with coverage
         uses: albr21/gha-pytest@1.0.0
         with:
-          source-dir: ${{ inputs.source-dir }}
-          min-coverage: ${{ inputs.min-coverage }}
+          path: ${{ inputs.path }}
+          cov-threshold: ${{ inputs.cov-threshold }}
 
   # TODO
   # lint:
