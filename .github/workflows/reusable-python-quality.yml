@@ -19,6 +19,10 @@ on:
         description: Minimum pylint score considered acceptable (does NOT fail the build)
         type: string
         default: '7.0'
+      pylintrc:
+        description: Path to a custom pylint configuration file (pylintrc)
+        type: string
+        default: ''
       requirements:
         description: Path to the requirements file
         type: string
@@ -52,5 +56,26 @@ jobs:
           path: ${{ inputs.path }}
           cov-threshold: ${{ inputs.cov-threshold }}
 
-  # TODO
-  # lint:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.docker-image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python environment
+        uses: albr21/gha-py-venv@1.0.0
+        with:
+          requirements: ${{ inputs.requirements }}
+          requirements-dev: ${{ inputs.requirements-dev }}
+
+      - name: Run pylint
+        uses: albr21/gha-pylint@1.0.0
+        with:
+          path: ${{ inputs.path }}
+          lint-threshold: ${{ inputs.lint-threshold }}
+          pylintrc: ${{ inputs.pylintrc }}
