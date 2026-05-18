@@ -2,6 +2,23 @@ name: 🧩 GHA Quality
 
 on:
   workflow_call:
+    inputs:
+      action-path:
+        description: Path to the action to validate
+        type: string
+        default: ''
+      paths:
+        description: Paths to the YAML files to lint
+        type: string
+        default: action.yml
+      config-path:
+        description: Optional path to a custom yamllint configuration file
+        type: string
+        required: false
+      fail-on-error:
+        description: Whether to fail the workflow if yamllint finds errors
+        type: boolean
+        default: false
 
 jobs:
   schema-validation:
@@ -15,3 +32,19 @@ jobs:
 
       - name: Validate action schema
         uses: albr21/gha-validate-action-schema@1.0.0
+
+  lint:
+    name: Lint YAML files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Run yamllint
+        uses: albr21/gha-yamllint@1.0.0
+        with:
+          paths: ${{ inputs.paths }}
+          config-path: ${{ inputs.config-path }}
+          fail-on-error: ${{ inputs.fail-on-error }}
