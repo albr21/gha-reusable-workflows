@@ -1,0 +1,17 @@
+name: 🧩 GHA Quality
+
+on:
+  workflow_call:
+
+jobs:
+  schema-validation:
+    name: Validate Action Schema
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Validate action schema
+        uses: albr21/gha-validate-action-schema@1.0.0
