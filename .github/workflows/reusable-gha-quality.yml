@@ -15,6 +15,7 @@ on:
         description: Optional path to a custom yamllint configuration file
         type: string
         required: false
+        default: ''
       fail-on-error:
         description: Whether to fail the workflow if yamllint finds errors
         type: boolean
@@ -42,9 +43,17 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Checkout GHA Reusable Workflows Repository
+        if: ${{ inputs.config-path == '' }}
+        uses: actions/checkout@v6
+        with:
+          repository: albr21/gha-reusable-workflows
+          path: .gha-reusable-workflows
+          fetch-depth: 1
+
       - name: Run yamllint
         uses: albr21/gha-yamllint@1.0.0
         with:
           paths: ${{ inputs.paths }}
-          config-path: ${{ inputs.config-path }}
+          config-path: ${{ inputs.config-path == '' && '.gha-reusable-workflows/configs/yamllint.yml' || inputs.config-path }}
           fail-on-error: ${{ inputs.fail-on-error }}
