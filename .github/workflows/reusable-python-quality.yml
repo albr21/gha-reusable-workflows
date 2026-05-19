@@ -67,6 +67,14 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Checkout GHA Reusable Workflows Repository
+        if: ${{ inputs.pylintrc == '' }}
+        uses: actions/checkout@v6
+        with:
+          repository: albr21/gha-reusable-workflows
+          path: .gha-reusable-workflows
+          fetch-depth: 1
+
       - name: Setup Python environment
         uses: albr21/gha-py-venv@1.0.0
         with:
@@ -78,4 +86,4 @@ jobs:
         with:
           path: ${{ inputs.path }}
           lint-threshold: ${{ inputs.lint-threshold }}
-          pylintrc: ${{ inputs.pylintrc }}
+          pylintrc: ${{ inputs.pylintrc == '' && '.gha-reusable-workflows/configs/pylintrc' || inputs.pylintrc }}
