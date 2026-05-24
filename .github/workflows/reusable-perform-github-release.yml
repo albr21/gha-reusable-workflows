@@ -16,13 +16,13 @@ jobs:
     permissions:
       contents: write
     steps:
-      # - name: Validate Inputs
-      #   uses: albr21/gha-type-guard@1.0.0
-      #   with:
-      #     payload: |
-      #       [
-      #         {"value": "${{ inputs.force }}", "type": "boolean"}
-      #       ]
+      - name: Validate Inputs
+        uses: albr21/gha-type-guard@1.0.0
+        with:
+          payload: |
+            [
+              {"value": "${{ inputs.force }}", "type": "boolean"}
+            ]
 
       - name: Checkout
         uses: actions/checkout@v6
