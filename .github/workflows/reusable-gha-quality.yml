@@ -3,10 +3,6 @@ name: 🧩 GHA Quality
 on:
   workflow_call:
     inputs:
-      action-path:
-        description: Path to the action to validate
-        type: string
-        default: ''
       paths:
         description: Paths to the YAML files to lint
         type: string
