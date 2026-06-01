@@ -4,19 +4,19 @@ on:
   workflow_call:
     inputs:
       name:
-        description: Name
+        description: Docker Image name
         type: string
         required: true
       tag:
-        description: Tag
+        description: Docker Image tag
         type: string
         required: true
       dockerfile:
-        description: Dockerfile
+        description: Dockerfile path
         type: string
         required: true
       context:
-        description: Context
+        description: Context path
         type: string
         required: true
 

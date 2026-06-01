@@ -1,0 +1,59 @@
+name: 🧩 Docker Image Vulnerability Scan
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        description: Docker Image name
+        required: true
+        type: string
+      tag:
+        description: Docker Image tag
+        required: true
+        type: string
+      dockerfile:
+        description: Dockerfile path
+        required: true
+        type: string
+      context:
+        description: Context path
+        required: true
+        type: string
+      trivy-scan-severity:
+        description: |-
+          Trivy scan severity level.
+          Enable values: CRITICAL, HIGH, MEDIUM, LOW, UNKNOWN.
+          By default, it uses `UNKNOWN`, but can be changed to other severity level if needed.
+        required: false
+        type: string
+        default: UNKNOWN
+      fail-on-vulnerability:
+        description: |-
+          Fail the workflow when the Scan find a vulnerability at the trivy scan severity selected.
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    name: Build and Push Docker Image
+    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-build-and-push-docker-image-on-ghcr.yml@main
+    with:
+      name: ${{ inputs.name }}
+      tag: ${{ inputs.tag }}
+      dockerfile: ${{ inputs.dockerfile }}
+      context: ${{ inputs.context }}
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
+
+  scan:
+    name: Vulnerability Scan
+    uses: albr21/gha-reusable-workflows/.github/workflows/reusable-docker-image-vulnerability-scan.yml@main
+    needs: [ deploy ]
+    with:
+      name: ${{ inputs.name }}
+      tag: ${{ inputs.tag }}
+      trivy-scan-severity: ${{ inputs.trivy-scan-severity }}
+      fail-on-vulnerability: ${{ inputs.fail-on-vulnerability }}
