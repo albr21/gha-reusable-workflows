@@ -1,4 +1,4 @@
-name: 🧩 Docker Image Vulnerability Scan
+name: 🧩 Build, Push and Scan Docker Image on GHCR
 
 on:
   workflow_call:
