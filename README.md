@@ -21,6 +21,8 @@ jobs:
 ## Available Workflows
 
 - [🧩 Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
+- [🧩 Build, Push and Scan Docker Image on GHCR](./workflows/reusable-build-push-and-scan-docker-image-on-ghcr.yml)
+- [🧩 Docker Image Vulnerability Scan](./workflows/reusable-docker-image-vulnerability-scan.yml)
 - [🧩 GHA Quality](./workflows/reusable-gha-quality.yml)
 - [🧩 Perform GitHub Release](./workflows/reusable-perform-github-release.yml)
 - [🧩 Python Quality](./workflows/reusable-python-quality.yml)
