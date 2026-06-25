@@ -13,6 +13,7 @@ disable=
     too-many-branches,
     broad-exception-caught,
     consider-using-with,
+    protected-access,
 
 [FORMAT]
 max-line-length=120
