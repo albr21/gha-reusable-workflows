@@ -1,0 +1,76 @@
+name: 🧩 Badge
+
+on:
+  workflow_call:
+    inputs:
+      label:
+        description: Left-hand side text of the badge
+        type: string
+        required: true
+      message:
+        description: Right-hand side text of the badge
+        type: string
+        required: true
+      color:
+        description: |-
+          Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported)
+        type: string
+        required: true
+      label-color:
+        description: |-
+          Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported)
+        type: string
+        required: false
+        default: "555"
+      logo:
+        description: |-
+          Named logo from Simple Icons (e.g. github, docker, python).
+          See https://simpleicons.org/ for the full list.
+        type: string
+        required: false
+        default: ""
+      logo-color:
+        description: |-
+          Color for the logo (hex, rgb, rgba, hsl, hsla and css named colors supported)
+          Supported for simple-icons logos but not for custom logos
+        type: string
+        required: false
+        default: ""
+      style:
+        description: |-
+          Badge style (flat, flat-square, plastic, for-the-badge, social)
+          Default is "flat"
+        type: string
+        required: false
+        default: flat
+
+jobs:
+  badge:
+    name: Manage Badge
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub App Token
+        id: github-app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app_id: ${{ secrets.CI_CD_BADGES_GITHUB_APP_ID }}
+          private_key: ${{ secrets.CI_CD_BADGES_GITHUB_APP_PRIVATE_KEY }}
+          repository: albr21/badges
+
+      - name: Manage Badge
+        uses: albr21/gha-badge@1.0.0
+        with:
+          label: ${{ inputs.label }}
+          message: ${{ inputs.message }}
+          color: ${{ inputs.color }}
+          label-color: ${{ inputs.label-color }}
+          logo: ${{ inputs.logo }}
+          logo-color: ${{ inputs.logo-color }}
+          style: ${{ inputs.style }}
+          format: svg
+          local: true
+          image: ghcr.io/albr21/shields:1.0.0
+          target-path: ${{ inputs.target-path }}
+          target-repo: albr21/badges
+          auth-method: token
+          github-token: ${{ secrets.GITHUB_TOKEN }} #TODO

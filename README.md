@@ -20,6 +20,7 @@ jobs:
 
 ## Available Workflows
 
+- [🧩 Badge](./workflows/reusable-badge.yml)
 - [🧩 Build and Push Docker Image on GHCR](./workflows/reusable-build-and-push-docker-image-on-ghcr.yml)
 - [🧩 Build, Push and Scan Docker Image on GHCR](./workflows/reusable-build-push-and-scan-docker-image-on-ghcr.yml)
 - [🧩 Docker Image Vulnerability Scan](./workflows/reusable-docker-image-vulnerability-scan.yml)
