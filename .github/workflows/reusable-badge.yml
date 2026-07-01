@@ -43,6 +43,10 @@ on:
         type: string
         required: false
         default: flat
+      target-path:
+        description: Path to the badge file in the target repository
+        type: string
+        required: true
 
 jobs:
   badge:
@@ -73,4 +77,4 @@ jobs:
           target-path: ${{ inputs.target-path }}
           target-repo: albr21/badges
           auth-method: token
-          github-token: ${{ secrets.GITHUB_TOKEN }} #TODO
+          github-token: ${{ steps.github-app-token.outputs.token }}
