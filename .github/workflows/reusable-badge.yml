@@ -52,6 +52,8 @@ jobs:
   badge:
     name: Manage Badge
     runs-on: ubuntu-latest
+    environment:
+      name: ci-cd-badges
     steps:
       - name: GitHub App Token
         id: github-app-token
