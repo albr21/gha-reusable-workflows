@@ -17,6 +17,10 @@ on:
             index.html
         type: string
         required: true
+    secrets:
+      BUILD_TOKEN:
+        description: Token used for building the web application
+        required: false
 
 jobs:
   deploy:
@@ -38,6 +42,8 @@ jobs:
 
       - name: Build
         if: ${{ inputs.build-command && inputs.build-command != '' }}
+        env:
+          BUILD_TOKEN: ${{ secrets.BUILD_TOKEN }}
         run: ${{ inputs.build-command }}
         shell: bash
 
