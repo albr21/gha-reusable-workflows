@@ -1,0 +1,62 @@
+name: 🧩 Deploy Web Application
+
+on:
+  workflow_call:
+    inputs:
+      build-command:
+        description: Command to build the web application
+        type: string
+        required: true
+      source-paths:
+        description: |-
+          Paths to the source files of the web application
+          This can be a single path or a newline-separated list of paths.
+
+          Example:
+          - src
+            index.html
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy Web Application
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          ref: ${{ github.sha }}
+
+      - name: Build
+        run: ${{ inputs.build-command }}
+        shell: bash
+
+      - name: Prepare
+        run: |-
+          mkdir generated
+          while IFS= read -r path; do
+            [ -z "$path" ] && continue
+            cp -r "$path" generated/
+          done << 'EOF'
+          ${{ inputs.source-paths }}
+          EOF
+        shell: bash
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: 'generated/'
+          retention-days: 2
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.0

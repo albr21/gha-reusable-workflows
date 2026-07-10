@@ -1,8 +1,11 @@
 name: gha-reusable-workflows
 description: |-
   Reusable GitHub Actions workflows for CI/CD across repositories.
-version: 1.0.0
+version: 1.1.0
 releases:
+  - version: 1.1.0
+    changes:
+      - Add reusable-deploy-web-application.yml
   - version: 1.0.0
     changes:
       - Initial release
