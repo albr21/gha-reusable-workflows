@@ -6,7 +6,7 @@ on:
       build-command:
         description: Command to build the web application
         type: string
-        required: true
+        required: false
       source-paths:
         description: |-
           Paths to the source files of the web application
@@ -37,6 +37,7 @@ jobs:
           ref: ${{ github.sha }}
 
       - name: Build
+        if: ${{ inputs.build-command && inputs.build-command != '' }}
         run: ${{ inputs.build-command }}
         shell: bash
 
